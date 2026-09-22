@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-syne), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), monospace;
+
+  --color-canvas: #FFFFFF;
+  --color-surface-50: #FAFAF9;
+  --color-surface-100: #F5F5F4;
+  --color-surface-200: #E7E5E4;
+  --color-surface-300: #D6D3D1;
+
+  --color-gold-400: #C28E46;
+  --color-gold-500: #A87428;
+  --color-gold-600: #8C5C18;
+
+  --color-ink-900: #0D0E12;
+  --color-ink-800: #1C1E26;
+  --color-ink-600: #4B4E5E;
+  --color-ink-400: #717588;
+}
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #0D0E12;
+  --surface: #FAFAF9;
+  --surface-border: #E7E5E4;
+  --accent-gold: #A87428;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto;
+  background-color: #FFFFFF;
+  color: #0D0E12;
+  color-scheme: light;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #0D0E12;
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  selection-background-color: #A87428;
+  selection-color: #FFFFFF;
+}
+
+::selection {
+  background: #A87428;
+  color: #FFFFFF;
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F5F4;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A87428;
+}
+
+/* Crisp light glassmorphism */
+.glass-nav-light {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.glass-card-light {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.glass-card-light-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-light-hover:hover {
+  border-color: rgba(168, 116, 40, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Typography styles */
+.font-display {
+  font-family: var(--font-display), sans-serif;
+}
+
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+/* Lenis smooth scrolling class */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

@@ -1,0 +1,83 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Country {
+  id           String        @id @default(cuid())
+  name         String        @unique
+  slug         String        @unique
+  code         String?
+  destinations Destination[]
+  journeys     Journey[]
+  createdAt    DateTime      @default(now())
+}
+
+model Destination {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  countryId   String
+  country     Country   @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  latitude    Float
+  longitude   Float
+  coverImage  String?
+  journeys    Journey[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Journey {
+  id          String       @id @default(cuid())
+  title       String
+  slug        String       @unique
+  countryName String
+  cityName    String
+  latitude    Float
+  longitude   Float
+  travelDate  DateTime
+  daysCount   Int          @default(3)
+  coverImage  String
+  excerpt     String
+  story       String
+  published   Boolean      @default(true)
+  isFeatured  Boolean      @default(false)
+  countryId   String?
+  country     Country?     @relation(fields: [countryId], references: [id], onDelete: SetNull)
+  destId      String?
+  destination Destination? @relation(fields: [destId], references: [id], onDelete: SetNull)
+  photos      Photo[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Photo {
+  id           String   @id @default(cuid())
+  journeyId    String
+  journey      Journey  @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+  imageUrl     String
+  thumbnailUrl String?
+  caption      String?
+  location     String?
+  takenAt      DateTime?
+  category     String   @default("Landscape") // Landscape, People, Food, Nature, Architecture, Moments, Other
+  aspectRatio  String   @default("3/2") // 16/9, 4/3, 3/2, 1/1, 2/3, 3/4
+  displayOrder Int      @default(0)
+  isFeatured   Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
